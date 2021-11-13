@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Events\PostPublished;
 use App\Services\PostService;
 use App\Validations\StorePostRequest;
 
@@ -29,8 +30,10 @@ class PostController extends Controller
         $validation = StorePostRequest::validate($request->all());
 
         if ($validation->fails()) return $this->errorResponse($validation->errors()->first());
-        
+
         $post = $this->postService->createPost($request->all());
+
+        event(new PostPublished($post));
 
         return $this->successResponse($post);
     }

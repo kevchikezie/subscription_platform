@@ -33,6 +33,6 @@ class Subscription extends Model
     // Table Relationships
     public function website()
     {
-        return $this->belongsTo(Website::class)->withDefault();
+        return $this->belongsTo(Website::class);
     }
 }

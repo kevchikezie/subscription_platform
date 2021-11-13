@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Websites extends Model
+class Website extends Model
 {
     use HasFactory;
 
@@ -19,14 +19,24 @@ class Websites extends Model
         'url',
     ];
 
+    /**
+     * The attributes that should be hidden when response is return
+     *  
+     * @var array
+     */
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
+
     // Table Relationships
     public function posts()
     {
-        return $this->belongsToMany(Post::class);
+        return $this->hasMany(Post::class);
     }
 
     public function subscriptions()
     {
-        return $this->belongsToMany(Subscription::class);
+        return $this->hasMany(Subscription::class);
     }
 }
