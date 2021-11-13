@@ -27,10 +27,7 @@ class PostController extends Controller
     {
         $post = $this->postService->createPost($request->all());
 
-        return response()->json([
-            'status' => 'success',
-            'data' => $post
-        ]);
+        return $this->successResponse($post);
     }
 
 }

@@ -28,18 +28,10 @@ class SubscriptionController extends Controller
     {
         $validation = StoreSubscriptionRequest::validate($request->all());
 
-        if ($validation->fails()) {
-            return response()->json([
-                'status' => 'error',
-                'message' => $validation->errors()->first(),
-            ]);
-        }
+        if ($validation->fails()) return $this->errorResponse($validation->errors()->first());
 
         $subscription = $this->subscriptionService->store($request->all());
 
-        return response()->json([
-            'status' => 'success',
-            'data' => $subscription
-        ]);
+        return $this->successResponse($subscription);
     }
 }
