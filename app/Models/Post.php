@@ -20,6 +20,16 @@ class Post extends Model
         'website_id'
     ];
 
+    /**
+     * The attributes that should be hidden when response is return
+     *  
+     * @var array
+     */
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
+
     // Table Relationships
     public function website()
     {
