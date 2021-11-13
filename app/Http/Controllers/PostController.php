@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\PostService;
+use App\Validations\StorePostRequest;
 
 class PostController extends Controller
 {
@@ -18,13 +19,17 @@ class PostController extends Controller
     }
 
     /**
-     * Create post
+     * Create new post
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+        $validation = StorePostRequest::validate($request->all());
+
+        if ($validation->fails()) return $this->errorResponse($validation->errors()->first());
+        
         $post = $this->postService->createPost($request->all());
 
         return $this->successResponse($post);

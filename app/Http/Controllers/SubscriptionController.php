@@ -19,7 +19,7 @@ class SubscriptionController extends Controller
     }
 
     /**
-     * Create post
+     * Create new subscription
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
