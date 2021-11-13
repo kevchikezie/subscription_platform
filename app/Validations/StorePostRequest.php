@@ -18,6 +18,8 @@ class StorePostRequest
 		return Validator::make($data, [
             'title' => 'required|string',
             'description' => 'required|string',
+            'content' => 'required|string',
+            'is_published' => 'required|boolean',
             'website_id' => 'required|integer'
         ]);
 	}

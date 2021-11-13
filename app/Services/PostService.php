@@ -17,6 +17,8 @@ class PostService
 		return Post::create([
 			'title' => $data['title'], 
 	        'description' => $data['description'],
+	        'content' => $data['content'],
+	        'is_published' => $data['is_published'],
 	        'website_id' => $data['website_id'],
 		]);
 	}

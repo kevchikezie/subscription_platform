@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 
-class SendEmail extends Command
+class SendEmailCommand extends Command
 {
     protected $signature = 'emails:send';   //php artisan emails:send
 

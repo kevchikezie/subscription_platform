@@ -17,7 +17,18 @@ class Post extends Model
     protected $fillable = [
         'title', 
         'description',
+        'content',
+        'is_published',
         'website_id'
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'is_published' => 'boolean',
     ];
 
     /**
