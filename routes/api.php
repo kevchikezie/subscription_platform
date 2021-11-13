@@ -24,4 +24,9 @@ Route::group(['prefix' => '/v1'], function () {
     Route::group(['prefix' => 'posts'], function () {
         Route::post('/', 'PostController@store');
     });
+
+    // Subscription routes
+    Route::group(['prefix' => 'subscriptions'], function () {
+        Route::post('/', 'SubscriptionController@store');
+    });
 });

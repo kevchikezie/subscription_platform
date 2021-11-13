@@ -24,4 +24,9 @@ class Websites extends Model
     {
         return $this->belongsToMany(Post::class);
     }
+
+    public function subscriptions()
+    {
+        return $this->belongsToMany(Subscription::class);
+    }
 }

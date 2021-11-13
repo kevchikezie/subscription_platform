@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Services\PostService;
+use App\Services\SubscriptionService;
 
-class PostController extends Controller
+class SubscriptionController extends Controller
 {
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(PostService $postService)
+    public function __construct(SubscriptionService $subscriptionService)
     {
-        $this->postService = $postService;
+        $this->subscriptionService = $subscriptionService;
     }
 
     /**
@@ -25,12 +25,11 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $post = $this->postService->createPost($request->all());
+        $subscription = $this->subscriptionService->store($request->all());
 
         return response()->json([
             'status' => 'success',
-            'data' => $post
+            'data' => $subscription
         ]);
     }
-
 }
