@@ -2,11 +2,11 @@
 
 namespace App\Listeners;
 
+use App\Events\PostPublished;
 use App\Mail\SubscriptionMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Events\PostPublished;
 
 class SendSubscriptionMail
 {

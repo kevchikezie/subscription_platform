@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Mail;
 
 class SendEmail extends Command
 {
-    protected $signature = 'emails:send';
+    protected $signature = 'emails:send';   //php artisan emails:send
 
     protected $description = 'Sending emails to the users.';
 
