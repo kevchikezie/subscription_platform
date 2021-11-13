@@ -28,15 +28,17 @@ class SendSubscriptionMail
      */
     public function handle(PostPublished $event)
     {
-        $post = $event->post;
+        try {
+            $post = $event->post;
         
-        $post->website->subscriptions()->chunk(10, function ($subscriptions) use ($post) {
-            foreach ($subscriptions as $subscription) {
-                Mail::to($subscription->email)->send(new SubscriptionMail($post));
-            }
-        });
-
-        
+            $post->website->subscriptions()->chunk(10, function ($subscriptions) use ($post) {
+                foreach ($subscriptions as $subscription) {
+                    Mail::to($subscription->email)->send(new SubscriptionMail($post));
+                }
+            });
+        } catch (Exception $e) {
+            \Log::error(json_encode($e));
+        }
 
     }
 }
