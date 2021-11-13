@@ -20,5 +20,12 @@ The link to the Postman collection for this project can be found below;
 ## To send mail using artisan command
 
 ```
-php artisan emails:send
+php artisan emails:send {postId}
+```
+
+`{postId}` in this case is the ID of the post you wish to notify the subscribers 
+about via email and it should be an integer
+
+```
+php artisan emails:send 1
 ```
