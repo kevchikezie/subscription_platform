@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Websites extends Model
+class Post extends Model
 {
     use HasFactory;
 
@@ -15,13 +15,14 @@ class Websites extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 
-        'url',
+        'title', 
+        'description',
+        'website_id'
     ];
 
     // Table Relationships
-    public function posts()
+    public function website()
     {
-        return $this->belongsToMany(Post::class);
+        return $this->belongsTo(Website::class)->withDefault();
     }
 }
