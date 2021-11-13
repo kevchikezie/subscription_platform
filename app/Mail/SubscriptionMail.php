@@ -8,9 +8,16 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SubscriptionMail extends Mailable
+class SubscriptionMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
+
+    /**
+     * Post object
+     *  
+     * @var App\Models\Post
+     */
+    public $post;
 
     /**
      * Create a new message instance.
@@ -35,4 +42,5 @@ class SubscriptionMail extends Mailable
                         'description' => $this->post->description,
                     ]);
     }
+
 }
