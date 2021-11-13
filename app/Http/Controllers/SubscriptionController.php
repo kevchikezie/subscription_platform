@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\SubscriptionService;
+use App\Validations\StoreSubscriptionRequest;
 
 class SubscriptionController extends Controller
 {
@@ -25,6 +26,15 @@ class SubscriptionController extends Controller
      */
     public function store(Request $request)
     {
+        $validation = StoreSubscriptionRequest::validate($request->all());
+
+        if ($validation->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $validation->errors()->first(),
+            ]);
+        }
+
         $subscription = $this->subscriptionService->store($request->all());
 
         return response()->json([
