@@ -2,12 +2,13 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Post;
+use App\Events\PostPublished;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Mail;
 
 class SendEmailCommand extends Command
 {
-    protected $signature = 'emails:send';   //php artisan emails:send
+    protected $signature = 'emails:send {postId}';   //php artisan emails:send
 
     protected $description = 'Sending emails to the users.';
 
@@ -18,15 +19,17 @@ class SendEmailCommand extends Command
 
     public function handle()
     {
-        $data = [
-            'title' => 'This is the title of ths article',
-            'description' => 'This is the description of the article',
-        ];
+        $postId = $this->argument('postId');
 
-        Mail::send('emails.subscription', $data, function ($message) {
-            $message->to('xxx@gmail.com')->subject('New Article Published');
-        });
+        $post = Post::find($postId);
 
-        $this->info('The emails are send successfully!');
+        if ($post) {
+            event(new PostPublished($post));
+
+            $this->info('The emails queued for sending!');
+        } else {
+            $this->info('Post does not exist!');
+        }
+
     }
 }

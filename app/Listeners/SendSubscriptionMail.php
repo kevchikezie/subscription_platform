@@ -9,7 +9,6 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class SendSubscriptionMail
-// class SendSubscriptionMail implements ShouldQueue
 {
     /**
      * Create the event listener.
@@ -24,19 +23,20 @@ class SendSubscriptionMail
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  App\Events\PostPublished  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(PostPublished $event)
     {
-        // \Log::info(['error' => json_encode($event)]);
-        // dd('Hello');
-
         $post = $event->post;
-        $subscriptions = $post->website->subscriptions()->get();
+        
+        $post->website->subscriptions()->chunk(10, function ($subscriptions) use ($post) {
+            foreach ($subscriptions as $subscription) {
+                Mail::to($subscription->email)->send(new SubscriptionMail($post));
+            }
+        });
 
-        foreach ($subscriptions as $subscription) {
-            Mail::to($subscription->email)->send(new SubscriptionMail($post));
-        }
+        
+
     }
 }
